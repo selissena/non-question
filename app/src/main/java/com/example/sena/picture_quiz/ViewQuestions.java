@@ -1,8 +1,6 @@
 package com.example.sena.picture_quiz;
 
-import android.content.SharedPreferences;
-import android.graphics.Color;
-import android.preference.PreferenceManager;
+
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -12,9 +10,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashSet;
 import java.util.Random;
-import java.util.Set;
 import android.graphics.Typeface;
 
 
@@ -43,7 +39,6 @@ public class ViewQuestions extends AppCompatActivity {
     ArrayList<Question> questions_easy = new ArrayList<>();
     ArrayList<Question> questions_hard = new ArrayList<>();
     //ArrayList<Question> currQuestions = new ArrayList<>();
-    ArrayList<Integer> askedDefinitionsIndex = new ArrayList<>();
 
     Question currQuestion;
 
@@ -100,18 +95,13 @@ public class ViewQuestions extends AppCompatActivity {
             }
             */
 
-            askedDefinitionsIndex = savedInstanceState.getIntegerArrayList("askedDefinitionsIndex");
 
             // Make sure no previously asked questions are used again
-            for (int index : askedDefinitionsIndex) {
-                askedDefinitions.add(questions.get(index));
 
-            }
             restoreDisplay(savedInstanceState);
 
         } else {
 
-            getSharedPreferences();
 
             // Initialize layout
             currQuestion = getCurrQuestion();
@@ -206,8 +196,8 @@ public class ViewQuestions extends AppCompatActivity {
         tvQuizNumber.setText(String.valueOf(quizNumber));
         tvDefinition.setText(currQuestion.getDefinition());
 
-        Log.d(TAG, "Save to SharedPreferences");
-        saveToSharedPreferences();
+
+
     }
     /**
      * Rebuild the display.
@@ -329,7 +319,7 @@ public class ViewQuestions extends AppCompatActivity {
         // Add to asked definitions (used for non-repetition on next button click)
         askedDefinitions.add(randomQuestion);
         // Add to asked definitions index (used keep track of used questions between runtimes (see onSaveInstanceState)
-        askedDefinitionsIndex.add(randomIndex);
+
 
         return randomQuestion;
     }
@@ -438,7 +428,7 @@ public class ViewQuestions extends AppCompatActivity {
         }
 
         bReplayQuiz.setVisibility(View.VISIBLE);
-        saveToSharedPreferences();
+
 
     }
 
@@ -475,7 +465,7 @@ public class ViewQuestions extends AppCompatActivity {
         answeredCorrectly = false;
 
         // Reset questions
-        askedDefinitionsIndex.clear();
+
         askedDefinitions.clear();
 
         //questionsHolder.clear();
@@ -492,8 +482,7 @@ public class ViewQuestions extends AppCompatActivity {
         displayImages();
         setImagesClickable(true);
 
-        Log.d(TAG, "Save to SharedPreferences");
-        saveToSharedPreferences();
+
     }
 
 
@@ -515,7 +504,7 @@ public class ViewQuestions extends AppCompatActivity {
         answeredCorrectly = false;
 
         // Reset questions
-        askedDefinitionsIndex.clear();
+
         askedDefinitions.clear();
 
         //questionsHolder.clear();
@@ -532,8 +521,7 @@ public class ViewQuestions extends AppCompatActivity {
         displayImages();
         setImagesClickable(true);
 
-        Log.d(TAG, "Save to SharedPreferences");
-        saveToSharedPreferences();
+
     }
 
     /**
@@ -541,25 +529,7 @@ public class ViewQuestions extends AppCompatActivity {
      * and counters from the shared preferences if available
      * or the default.
      */
-    private void getSharedPreferences() {
-        // Get reference to default shared preferences
-        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
 
-        // Assign shared preferences to global var
-        quizNumber = sharedPreferences.getInt("quizNumber", 1);
-
-
-        Set<String> askedDefintionsIndexSet = sharedPreferences.getStringSet("askedDefinitionsIndex", new HashSet<String>());
-
-        for (String usedQuestionNumber : askedDefintionsIndexSet) {
-            askedDefinitions.add(questions.get(Integer.parseInt(usedQuestionNumber)));
-            askedDefinitionsIndex.add(Integer.parseInt(usedQuestionNumber));
-        }
-
-
-
-
-    }
 
     /**
      * Save values to state
@@ -586,32 +556,13 @@ public class ViewQuestions extends AppCompatActivity {
         */
 
 
-        savedInstanceState.putIntegerArrayList("askedDefinitionsIndex", askedDefinitionsIndex);
+
     }
 
     /**
      * Save quiz number and correct
      * counter in saved preferences
      */
-    public void saveToSharedPreferences() {
-        // Store values between app instances
-        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-
-        Log.d(TAG, "saveToSharedPreferences()");
-
-        // Set the key/value pairs
-        editor.putInt("quizNumber", quizNumber);
-
-        Set<String> askedDefintionsIndexSet = new HashSet<>();
-
-        for (int i = 0; i <= askedDefinitionsIndex.size() - 1; i++) {
-            askedDefintionsIndexSet.add(String.valueOf(askedDefinitionsIndex.get(i)));
-        }
-
-        editor.putStringSet("askedDefinitionsIndex", askedDefintionsIndexSet);
-        editor.commit();
-    }
 
     /**
      * Set all four images to either clickable
