@@ -2,8 +2,6 @@
     <string name="app_name">picture_quiz</string>
     <string name="quiz_number_text" translatable="false">Question #</string>
     <string name="instruction">Which image matches:</string>
-    <string name="score_text">Score:</string>
-    <string name="score_default" translatable="false">0%</string>
     <string name="correct">Correct: </string>
     <string name="checked_answer">Next Question</string>
     <string name="definition_default" translatable="false">--</string>
@@ -30,7 +28,6 @@
 
     <string name="button_replay">Replay Level</string>
     <string name="button_replay_quiz">Replay Quiz</string>
-    <string name="previous_score">Previous Score: </string>
-    <string name="new_score"> New Score: </string>
+
 
 </resources>

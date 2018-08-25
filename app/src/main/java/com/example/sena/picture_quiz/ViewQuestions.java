@@ -32,7 +32,7 @@ public class ViewQuestions extends AppCompatActivity {
     static ArrayList<Integer> imageLinkHolder = new ArrayList<>();
 
 
-    TextView tvQuizNumber, tvDefinition, tvScore;
+    TextView tvQuizNumber, tvDefinition;
     //Button bnext;09.07
     Button bReplay, bReplayQuiz;
     ImageButton image1, image2, image3, image4;
@@ -49,7 +49,7 @@ public class ViewQuestions extends AppCompatActivity {
 
     int quizNumber = 1, position = 1;
 
-    String previousScore;
+
     boolean answeredCorrectly = false;
 
     @Override
@@ -69,7 +69,7 @@ public class ViewQuestions extends AppCompatActivity {
         // Get handles to fields
         tvQuizNumber = (TextView) findViewById(R.id.tvQuizNumber);
         tvDefinition = (TextView) findViewById(R.id.tvDefinition);
-        tvScore = (TextView) findViewById(R.id.tvScore);
+
 
 
         //bNext = (Button) findViewById(R.id.buttonCheckedAnswer);09.07
@@ -218,7 +218,7 @@ public class ViewQuestions extends AppCompatActivity {
         // Set text views
         tvDefinition.setText(currQuestion.getDefinition());
         tvQuizNumber.setText(String.valueOf(quizNumber));
-        tvScore.setText(String.valueOf(calculateScore()) + "%");
+
 
         // Restore images
         image1.setImageResource(currQuestion.getImageLink());
@@ -403,7 +403,7 @@ public class ViewQuestions extends AppCompatActivity {
 
             answeredCorrectly = true;
 
-            tvScore.setText(String.valueOf(calculateScore()) + "%");
+
             tvQuizNumber.setText(String.valueOf(quizNumber));
 
             Log.d(TAG, "Set clickable false");
@@ -416,13 +416,13 @@ public class ViewQuestions extends AppCompatActivity {
 
             checkNext();
 
-            if (quizNumber == QUIZ_COUNT) { saveScores(); }
+
 
             Log.d(TAG, "Enable next");
         } else {// Player chose the wrong definition
 
             tvQuizNumber.setText(String.valueOf(quizNumber));
-            tvScore.setText(String.valueOf(calculateScore()) + "%");
+
 
             // Alter image to show user answer is correct
             selectedImage.setImageResource(R.drawable.incorrect);
@@ -442,24 +442,6 @@ public class ViewQuestions extends AppCompatActivity {
 
     }
 
-    /**
-     * Saves and updates scores on disk.
-     */
-    private void saveScores() {
-        Log.i(TAG, "saveScores()");
-        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-
-        previousScore = sharedPreferences.getString("newScore", "0%");
-        Log.d(TAG, "save previousScore: " + previousScore);
-
-        editor.putString("previousScore", previousScore);
-
-        editor.putString("newScore", calculateScore() + "%");
-        // Commit changes
-        editor.commit();
-
-    }
 
 
 
@@ -503,7 +485,7 @@ public class ViewQuestions extends AppCompatActivity {
         currQuestion = getCurrQuestion();
         tvDefinition.setText(currQuestion.getDefinition());
         tvQuizNumber.setText(String.valueOf(quizNumber));
-        tvScore.setText(R.string.score_default);
+
 
         // Prepare and display images
 
@@ -543,7 +525,7 @@ public class ViewQuestions extends AppCompatActivity {
         currQuestion = getCurrQuestion();
         tvDefinition.setText(currQuestion.getDefinition());
         tvQuizNumber.setText(String.valueOf(quizNumber));
-        tvScore.setText(R.string.score_default);
+
 
         // Prepare and display images
 
@@ -644,14 +626,6 @@ public class ViewQuestions extends AppCompatActivity {
         image4.setClickable(clickable);
     }
 
-    /**
-     * Calculate the score based on the correct
-     * counter
-     *
-     * @return score
-     */
-    public int calculateScore() {
-        return (int) (1.0 * quizNumber / QUIZ_COUNT * 100);
-    }
+
 
 }
