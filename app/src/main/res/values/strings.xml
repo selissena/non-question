@@ -1,0 +1,36 @@
+<resources>
+    <string name="app_name">picture_quiz</string>
+    <string name="quiz_number_text" translatable="false">Question #</string>
+    <string name="instruction">Which image matches:</string>
+    <string name="score_text">Score:</string>
+    <string name="score_default" translatable="false">0%</string>
+    <string name="correct">Correct: </string>
+    <string name="checked_answer">Next Question</string>
+    <string name="definition_default" translatable="false">--</string>
+
+    <string name="definitionRed">red</string>
+    <string name="definitionYellow">yellow</string>
+    <string name="definitionBlue">blue</string>
+    <string name="definitionGreen">green</string>
+    <string name="definitionBlack">black</string>
+    <string name="definitionOrange">orange</string>
+    <string name="definitionGrey">grey</string>
+    <string name="definitionPink">pink</string>
+    <string name="definitionPurple">purple</string>
+    <string name="definitionClaretRed">claret red</string>
+
+
+    <string name="definitionKargaburnu">kargaburnu</string>
+    <string name="definitionAvakado">avakado</string>
+    <string name="definitionFrankSinatra">Frank Sinatra</string>
+    <string name="definitionLale">lale</string>
+    <string name="definitionKriketTopu">kriket topu</string>
+    <string name="definitionQueen">Queen</string>
+    <string name="definitionAbbeyRoad">Abbey Road</string>
+
+    <string name="button_replay">Replay Level</string>
+    <string name="button_replay_quiz">Replay Quiz</string>
+    <string name="previous_score">Previous Score: </string>
+    <string name="new_score"> New Score: </string>
+
+</resources>
